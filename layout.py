@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 
 sg.theme("LightTeal") # Maybe DarkAmber
 # Elements in layout
-menu_def = [['&File', ['&Properties', '&Exit']], ['&Help', ['&About', '&Update']]]
+menu_def = [['&File', ['&Exit']]]
 
 # Main layout
 column1 = [
