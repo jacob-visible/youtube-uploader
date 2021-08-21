@@ -1,9 +1,15 @@
 from datetime import datetime
-from Google import Create_Service
-from googleapiclient.http import MediaFileUpload
+import os
+import random
+import sys
+import time
 
 import config
+from Google import Create_Service
+from apiclient.http import MediaFileUpload
 
+
+# You will need to add your app to Google Cloud and get it authorized and create the file "Client_Secret.json". See here for details: https://developers.google.com/identity/protocols/oauth2
 
 def process(self, INPUTFILEPATHListed, gui_queue=None):
     INPUTFILEPATHListed: str = INPUTFILEPATHListed
@@ -22,10 +28,9 @@ def process(self, INPUTFILEPATHListed, gui_queue=None):
     upload_date_time = datetime(int(config.today.year), int(config.today.month), int(config.today.day), config.publishHour, 0, 0).isoformat() + '.000Z'
     print("Scheduled time:", config.today.year, config.today.month, config.today.day, config.publishHour)
     print("Scheduled time raw:", upload_date_time)
-    # Category IDs https://gist.github.com/dgp/1b24bf2961521bd75d6c
     request_body = {
         'snippet': {
-            'categoryI': '19',
+            'categoryI': config.categoryID,
             'title': titleFinal,
             'description': config.description,
             'tags': config.tags
@@ -46,10 +51,9 @@ def process(self, INPUTFILEPATHListed, gui_queue=None):
         media_body=mediaFile
     ).execute()
 
-    # Old thumbnail C:\SyncFiles\Automated\Thumbnails\NLSS_Overlay_Highlights.png
     service.thumbnails().set(
         videoId=response_upload.get('id'),
-        media_body=MediaFileUpload('C:\Thumbnails\Highlights.png')
+        media_body=MediaFileUpload(config.thumbnailFilePath)
     ).execute()
     # End Upload
     print("Posted to yt:", INPUTFILEPATHListed)

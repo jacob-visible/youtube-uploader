@@ -10,8 +10,11 @@ verboseLogs: bool = False
 today = datetime.today()
 titleStart = "Upload Title"
 videoUploadDirectory: str = r'C:\Uploads'
-publishHour: int = 23
-description: str = "Subscribe to see more."
-tags: str = 'Gaming Highlights'
+publishHour: int = 23 # military time so this is 11:00pm
+description: str = "This is your Video's Description"
+tags: str = 'Tag'
 stepProgressSecondsDefault: float = 2.2
 progressStages: list[int] = [96]
+thumbnailFilePath: str = "C:\Thumbnail.png"
+# Category IDs  https://gist.github.com/dgp/1b24bf2961521bd75d6c
+categoryID: str = "19"

@@ -73,21 +73,8 @@ while True:
                 fileCount += 1
                 print("Notification - Added Task:", fileCount, INPUTFILEPATH)
                 window.refresh()
-                # append text to the filename start
-                OUTPUTFILEPATH: str = INPUTFILEPATH.rsplit("/", 1) [0] + """/""" + config.completedAppendStart + INPUTFILEPATH.rsplit("/", 1)[1]
-                # append text to the filename end
-                OUTPUTFILEPATH = OUTPUTFILEPATH.rsplit(".", 1)[0] + config.completedAppendEnd + "." + OUTPUTFILEPATH.rsplit(".", 1)[1]
-                if not OUTPUTFILEPATH.rsplit(".", 1)[1] in config.extenionsOutputList:
-                    print("Notification - Extension not found in output list:", INPUTFILEPATH.rsplit(".", 1)[1], config.extenionsOutputList)
-                    OUTPUTFILEPATH = OUTPUTFILEPATH.rsplit(".", 1)[0] + ".mp4"
-                i: int = 0
-                while os.path.exists(OUTPUTFILEPATH):
-                    i += 1
-                    if not os.path.exists(OUTPUTFILEPATH.rsplit(".", 1)[0] + "(" + str(i) + ")" + "." + INPUTFILEPATH.rsplit(".", 1)[1]):
-                        OUTPUTFILEPATH: str = OUTPUTFILEPATH.rsplit(".", 1)[0] + "(" + str(i) + ")" + "." + INPUTFILEPATH.rsplit(".", 1)[1]
-                        break
                 taskDialogs.append("(" + str(fileCount) + "/" + str(len(inputFilepathsListed)) + ")" + " Processing... " + INPUTFILEPATH.rsplit("/", 1)[1])
-                queueVariables.append([INPUTFILEPATH, OUTPUTFILEPATH, 0])
+                queueVariables.append([INPUTFILEPATH])
             window["-PROGRESS BAR-"].update(current_count=0)
             window.Element("-DIALOG-").update(taskDialogs[0])
             processTimeIntialEstimate: int = int((stepProgressSeconds/60*100))

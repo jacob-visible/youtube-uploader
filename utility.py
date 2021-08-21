@@ -3,6 +3,7 @@ import winsound
 import time
 
 import config
+import processing
 
 def jobs_done(window, entireRuntimeStart):
     os.system('cmd /c "MSG %USERNAME% Tasks Completed! && EXIT"')
@@ -21,7 +22,7 @@ def queue_runner(queueList: list[list], gui_queue):
         individualTaskStartTime = time.time()
         r += 1
         gui_queue.put("0")
-        processing.process(queueList[r][0], queueList[r][1], queueList[r][2], gui_queue)
-        gui_queue.put("100")  # Multithreading
+        processing.process(queueList[r][0], gui_queue)
+        gui_queue.put("100")  # End of threaded process
         print("Notification - Individual task total time:", time.time() - individualTaskStartTime)
     return
